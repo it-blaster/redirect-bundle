@@ -11,6 +11,7 @@ namespace ItBlaster\RedirectBundle\Behavior;
 class RedirectBehavior extends \Behavior
 {
     protected $i18n = NULL;
+    protected $builder;
 
     /**
      * @throws InvalidArgumentException

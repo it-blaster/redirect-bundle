@@ -32,10 +32,10 @@ class RedirectAdmin extends Admin
         }
 
         $listMapper
-            ->add('OldUrl',null,array(
+            ->add('OldUrl', null, array(
                 'label' => 'Старый адрес'
             ))
-            ->add('NewUrl',null,array(
+            ->add('NewUrl', null, array(
                 'label' => 'Новый адрес'
             ))
             ->add('_action', 'actions', array(
@@ -54,15 +54,15 @@ class RedirectAdmin extends Admin
     {
         if ($this->useModel()) {
             $formMapper
-                ->add('Model','text',array(
+                ->add('Model', 'text', array(
                     'disabled'  => true,
                     'required' => false
                 ))
-                ->add('ObjectId','text',array(
+                ->add('ObjectId','text', array(
                     'disabled'  => true,
                     'required' => false
                 ))
-                ->add('Locale','choice',array(
+                ->add('Locale', 'choice', array(
                     'label'         => 'Локаль',
                     'required'      => false,
                     'choices'       => $this->getLocaleChoices(),
@@ -70,10 +70,10 @@ class RedirectAdmin extends Admin
                 ));
         }
         $formMapper
-            ->add('OldUrl','text',array(
+            ->add('OldUrl', 'text', array(
                 'label' => 'Старый адрес',
             ))
-            ->add('NewUrl','text',array(
+            ->add('NewUrl', 'text', array(
                 'label' => 'Новый адрес',
                 'required' => false
             ))
