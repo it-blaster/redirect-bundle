@@ -6,7 +6,7 @@
         xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.7/database.xsd"
         namespace="ItBlaster\RedirectBundle\Model">
 
-    <table name="redirect" description="Редиректы">
+    <table name="redirect" description="Redirects">
         <column name="id"               type="integer"      required="true" primaryKey="true" autoIncrement="true" />
         <column name="model"            type="varchar"      required="false" />
         <column name="object_id"        type="integer"      required="false" />
