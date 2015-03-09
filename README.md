@@ -85,6 +85,76 @@ it_blaster_redirect:
     </table>
 ```
 
+Use Redirect
+-------
+Для начала необходимо переопределить контроллер 404 ошибки. Для этого в файле `config.yml`
+``` bash
+twig:
+    exception_controller: AppMainBundle:Layout:showException
+```
+Далее в методе showException контроллера Layout перед тем как отдать 404-страницу проверяем есть ли текущий адрес в таблице редиректов:
+``` php
+    public function showExceptionAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null)
+    {
+        $redirect = $this->oldRedirect($request, $exception);
+        if ($redirect) {
+            return $this->redirect($redirect);
+        }
+        ...
+    }
+
+    /**
+     * Если ссылка пользователя ведёт на старый сайт, редиректим на новый сайт
+     *
+     * @param Request $request
+     * @param FlattenException $exception
+     */
+    protected function oldRedirect(Request $request, FlattenException $exception)
+    {
+        $redirect_object = RedirectQuery::create()
+            ->filterByOldUrl('%'.$request->getUri().'%', \Criteria::LIKE)
+            ->findOne();
+        if ($redirect_object) { //ща средиректим
+            return $redirect_object->getNewUrl(); //адрес на указанную ссылку
+        }
+    }
+```
+
+Если у вас стоит параметр `use_model: true`, то в операторе `if ($redirect_object) {` необходимо добавить проверку `if ($redirect_object->getNewUrl()) {`. Если этот оператор не выполняется, то смотреть на поля `model`, `object_id` и пытаться средиректить на страницу объекта. Например:
+``` php
+    protected function oldRedirect(Request $request, FlattenException $exception)
+    {
+        $redirect_object = RedirectQuery::create()
+            ->filterByOldUrl('%'.$request->getUri().'%', \Criteria::LIKE)
+            ->findOne();
+        if ($redirect_object) { //ща средиректим
+            if ($redirect_object->getNewUrl()) {
+                return $redirect_object->getNewUrl(); //адрес на указанную ссылку
+            } else {
+                $model = $redirect_object->getModel();
+                $object_id = $redirect_object->getObjectId();
+                if ($model && $object_id) {
+                    $route_name = false;
+                    $route_params = array();
+                    switch ($model) {
+                        case 'news_i18n':
+                            $object = NewsQuery::create()->findOneById($object_id);
+                            if ($object) {
+                                $route_name = 'news-item';
+                                $route_params = array('alias'=>$object->getAlias());
+                            }
+                            break;
+                        ...
+                    }
+                    if ($route_name) {
+                        return $this->generateUrl($route_name, $route_params); //адрес на объект
+                    }
+                }
+            }
+        }
+        return false;
+    }
+```
 Credits
 -------
 
