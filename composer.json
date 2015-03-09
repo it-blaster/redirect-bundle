@@ -2,7 +2,7 @@
     "name": "it-blaster/redirect-bundle",
     "description": "Auxiliary Symfony2 bundle. Perenapravlenie from the pages of the old site to the new site page.",
     "type": "symfony-bundle",
-    "keywords": ["redirect", "forward",],
+    "keywords": ["redirect", "forward", "symfony"],
     "homepage": "https://github.com/it-blaster/translation-bundle",
     "license" : "MIT",
     "authors": [
