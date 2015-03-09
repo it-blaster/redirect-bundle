@@ -20,6 +20,8 @@ class RedirectAdmin extends Admin
     protected $maxPageLinks = 1000;
 
     /**
+     * Список
+     *
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -48,6 +50,8 @@ class RedirectAdmin extends Admin
     }
 
     /**
+     * Конфигурем форму редактирования
+     *
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -56,11 +60,11 @@ class RedirectAdmin extends Admin
             $formMapper
                 ->add('Model', 'text', array(
                     'disabled'  => true,
-                    'required' => false
+                    'required'  => false
                 ))
-                ->add('ObjectId','text', array(
+                ->add('ObjectId', 'text', array(
                     'disabled'  => true,
-                    'required' => false
+                    'required'  => false
                 ))
                 ->add('Locale', 'choice', array(
                     'label'         => 'Локаль',
@@ -74,8 +78,8 @@ class RedirectAdmin extends Admin
                 'label' => 'Старый адрес',
             ))
             ->add('NewUrl', 'text', array(
-                'label' => 'Новый адрес',
-                'required' => false
+                'label'     => 'Новый адрес',
+                'required'  => false
             ))
         ;
     }
@@ -97,11 +101,23 @@ class RedirectAdmin extends Admin
         ;
     }
 
+    /**
+     * Чистка кеша после создания объекта
+     *
+     * @param mixed $object
+     * @return mixed|void
+     */
     public function postPersist($object)
     {
         $this->cleanUp();
     }
 
+    /**
+     * Чистка кеша после обновления объекта
+     *
+     * @param mixed $object
+     * @return mixed|void
+     */
     public function postUpdate($object)
     {
         $this->cleanUp();
@@ -132,6 +148,11 @@ class RedirectAdmin extends Admin
         return $locales;
     }
 
+    /**
+     * Убираем экспорт
+     *
+     * @param RouteCollection $collection
+     */
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('export');
