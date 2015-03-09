@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database
+        name="default"
+        defaultIdMethod="native"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.7/database.xsd"
+        namespace="ItBlaster\RedirectBundle\Model">
+
+    <table name="redirect" description="Редиректы">
+        <column name="id"               type="integer"      required="true" primaryKey="true" autoIncrement="true" />
+        <column name="model"            type="varchar"      required="false" />
+        <column name="object_id"        type="integer"      required="false" />
+        <column name="locale"           type="varchar"      required="false" />
+        <column name="old_url"          type="longvarchar"  required="false" />
+        <column name="new_url"          type="varchar"      required="false" />
+    </table>
+</database>
