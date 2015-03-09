@@ -1,1 +1,12 @@
+parameters:
+    it_blaster_redirect.admin.class: ItBlaster\RedirectBundle\Admin\RedirectAdmin
+    it_blaster_redirect.model.class: ItBlaster\RedirectBundle\Model\Redirect
+    it_blaster_redirect.tags.label: Редиректы
+    it_blaster_redirect.tags.group: admin_group_label
+
 services:
+    it_blaster_redirect.admin.redirect:
+        class: %it_blaster_redirect.admin.class%
+        arguments: [~, %it_blaster_redirect.model.class%, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: propel, group: %it_blaster_redirect.tags.group%, label: %it_blaster_redirect.tags.label%}

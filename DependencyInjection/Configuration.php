@@ -20,6 +20,21 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('it_blaster_redirect');
 
+        $rootNode->children()
+            ->arrayNode('locales')
+                ->beforeNormalization()
+                    ->ifString()
+                    ->then(function($v) { return preg_split('/\s*,\s*/', $v); })
+                ->end()
+                ->requiresAtLeastOneElement()
+                ->prototype('scalar')->end()
+            ->end()
+            ->scalarNode('use_model')
+                ->cannotBeEmpty()
+                ->defaultValue('false')
+            ->end()
+        ->end();
+
         return $treeBuilder;
     }
 }
