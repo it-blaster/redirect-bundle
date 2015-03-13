@@ -76,16 +76,10 @@ class RedirectAdmin extends Admin
         $formMapper
             ->add('OldUrl', 'text', array(
                 'label' => 'Старый адрес',
-                'attr'  => array(
-                    'maxlength' => 255
-                )
             ))
             ->add('NewUrl', 'text', array(
                 'label'     => 'Новый адрес',
                 'required'  => false,
-                'attr'      => array(
-                    'maxlength' => 255
-                )
             ))
         ;
     }

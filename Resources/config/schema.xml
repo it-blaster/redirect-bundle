@@ -12,6 +12,6 @@
         <column name="object_id"        type="integer"      required="false" />
         <column name="locale"           type="varchar"      required="false" />
         <column name="old_url"          type="longvarchar"  required="false" />
-        <column name="new_url"          type="varchar"      required="false" />
+        <column name="new_url"          type="longvarchar"  required="false" />
     </table>
 </database>
