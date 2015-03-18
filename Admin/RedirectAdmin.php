@@ -34,10 +34,10 @@ class RedirectAdmin extends Admin
         }
 
         $listMapper
-            ->add('OldUrl', null, array(
+            ->add('OldUrlShort', null, array(
                 'label' => 'Старый адрес'
             ))
-            ->add('NewUrl', null, array(
+            ->add('NewUrlShort', null, array(
                 'label' => 'Новый адрес'
             ))
             ->add('_action', 'actions', array(
